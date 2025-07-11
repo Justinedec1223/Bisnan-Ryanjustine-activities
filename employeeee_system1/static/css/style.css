@@ -1,0 +1,30 @@
+body.billionaire-bg {
+  background: linear-gradient(to right, #1f1c2c, #928dab);
+  font-family: 'Segoe UI', sans-serif;
+  color: #fff;
+}
+
+.card {
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #ffd700;
+}
+
+.text-gold {
+  color: #ffd700;
+}
+
+.btn-primary {
+  background-color: #6a11cb;
+  border: none;
+}
+
+.btn-success {
+  background-color: #00c9ff;
+  border: none;
+}
