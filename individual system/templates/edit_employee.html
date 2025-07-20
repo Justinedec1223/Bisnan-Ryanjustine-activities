@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Add Employee{% endblock %}
+{% block content %}
+<div class="mt-4 col-md-6 mx-auto">
+  <h3>Add Employee</h3>
+  <form method="POST">
+    <input name="name" class="form-control mb-2" placeholder="Name" required>
+    <input name="email" class="form-control mb-2" placeholder="Email" required>
+    <input name="position" class="form-control mb-2" placeholder="Position" required>
+    <button class="btn btn-primary w-100">Submit</button>
+  </form>
+</div>
+{% endblock %}
