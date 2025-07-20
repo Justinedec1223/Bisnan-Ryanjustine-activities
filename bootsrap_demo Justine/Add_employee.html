@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Employee</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .nav-header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-btn.active {
+            background: white;
+            color: #4facfe;
+        }
+
+        h1 {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-container {
+            padding: 40px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: #4facfe;
+            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .form-label {
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            background: white;
+            padding: 0 8px;
+            font-weight: 600;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .form-input:focus + .form-label {
+            color: #4facfe;
+        }
+
+        select.form-input {
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+            display: block;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+
+            .form-container {
+                padding: 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+            display: none;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-header">
+            <h1> Add Employee </h1>
+            <div class="nav-buttons">
+              
+               
+            </div>
+        </div>
+
+        <div class="form-container">
+            <div id="success-message" class="success-message">
+                Employee added successfully!
+            </div>
+
+            <form id="employee-form" onsubmit="handleSubmit(event)">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <input type="text" class="form-input" id="firstName" name="firstName" required>
+                        <label class="form-label">First Name</label>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-input" id="lastName" name="lastName" required>
+                        <label class="form-label">Last Name</label>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="email" class="form-input" id="email" name="email" required>
+                        <label class="form-label">Email</label>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="tel" class="form-input" id="phone" name="phone" required>
+                        <label class="form-label">Phone Number</label>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-input" id="position" name="position" required>
+                        <label class="form-label">Position</label>
+                    </div>
+
+                    <div class="form-group">
+                        <select class="form-input" id="department" name="department" required>
+                            <option value="">Select Department</option>
+                            <option value="IT">Information Technology</option>
+                            <option value="HR">Human Resources</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Sales">Sales</option>
+                            <option value="Operations">Operations</option>
+                        </select>
+                        <label class="form-label">Department</label>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="date" class="form-input" id="startDate" name="startDate" required>
+                        <label class="form-label">Start Date</label>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="number" class="form-input" id="salary" name="salary" min="0" step="0.01">
+                        <label class="form-label">Salary</label>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <input type="text" class="form-input" id="address" name="address">
+                        <label class="form-label">Address</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Add Employee</button>
+            </form>
+        </div>
+    </div>
+
+    
+</body>
+</html>
